@@ -1,0 +1,28 @@
+name: Frontend CD Pipeline
+
+on:
+  push:
+    branches:
+      - deploy # El trigger exigido por la rúbrica
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Descargar codigo del repositorio
+        uses: actions/checkout@v3
+
+      - name: Iniciar sesion en Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Construir y Publicar Imagen Docker Frontend
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          # Publica la versión del Front en tu repositorio
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/innovatech-frontend:latest
