@@ -8,11 +8,11 @@ services:
     container_name: proyecto_frontend_app
     restart: always
     ports:
-      - "5000:5000" # Cambiar el primer "5000" si deseas mapearlo a otro puerto en tu máquina local
+      - "5000:5000" 
     environment:
-      # Variable crítica para que el Python sepa dónde ir a buscar los datos del backend localmente
-      - BACKEND_URL=http://localhost:3000
-      # Si tu archivo .env.example del front tiene más variables,agrégalas aquí abajo en el mismo formato
+      
+      - BACKEND_URL=http://proyecto_backend_api:3000
+      
     networks:
       - red_innovatech_global
 
